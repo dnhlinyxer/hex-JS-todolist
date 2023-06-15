@@ -8,10 +8,14 @@ const list = document.querySelector('.list');
 const undoCount = document.querySelector('.list_footer p');
 
 
-let todoData = [];
+// 先取出localStorageData的資料渲染在畫面上
+let localStorageData = JSON.parse(localStorage.getItem("todoData"));
+let todoData = (localStorageData !== null) ? localStorageData : [];
 
 // 預設渲染的 tab 資料是 all
 let tabType = "all";
+
+renderData();
 
 // 渲染資料
 function renderData() {
@@ -52,6 +56,8 @@ addBtn.addEventListener("click", function(e) {
         isDone: false
     };
     todoData.push(oneTodo);
+    // 放進localStorage
+    localStorage.setItem("todoData", JSON.stringify(todoData));
     renderData();
 
     addTodoText.value = "";
@@ -73,6 +79,7 @@ list.addEventListener("click", function(e) {
         // 點擊刪除按鈕以外的地方就切換 未完成/已完成狀態
         todoData[todoIndex].isDone = !todoData[todoIndex].isDone;
     }
+    localStorage.setItem("todoData", JSON.stringify(todoData));
     renderData();
 });
 
@@ -92,6 +99,7 @@ clearDoneBtn.addEventListener("click", function(e) {
     if (confirm(`確定清除所有已完成的待辦事項？`) === true) {
         todoData = undoData;
     }
+    localStorage.setItem("todoData", JSON.stringify(todoData));
     renderData();
 });
 
