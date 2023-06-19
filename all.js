@@ -3,6 +3,7 @@ const addTodoText = document.querySelector('.add_todo_text');
 
 const tab = document.querySelector('.tab');
 const tabList = document.querySelectorAll('.tab li');
+const tabAll = document.querySelector('[data-tab="all"]');
 
 const list = document.querySelector('.list');
 const undoCount = document.querySelector('.list_footer p');
@@ -58,6 +59,14 @@ addBtn.addEventListener("click", function(e) {
     todoData.push(oneTodo);
     // 放進localStorage
     localStorage.setItem("todoData", JSON.stringify(todoData));
+
+    // tab切換成all
+    tabType = "all";
+    tabList.forEach(function(item) {
+        item.classList.remove("active");
+    });
+    tabAll.classList.add("active");
+
     renderData();
 
     addTodoText.value = "";
