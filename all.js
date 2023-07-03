@@ -48,6 +48,12 @@ function renderData() {
 }
 
 // 新增todo
+addTodoText.addEventListener('keydown', function(e) {
+    // console.log(e.key);
+    if (e.key !== "Enter") return;
+    addBtn.click();
+});
+
 addBtn.addEventListener("click", function(e) {
     e.preventDefault();
     if (addTodoText.value.trim() === "") return alert("記得輸入代辦事項喔！");
